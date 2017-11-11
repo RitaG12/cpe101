@@ -1,0 +1,46 @@
+from solverFuncs import *
+
+def main():
+   #makePuzzle("WAQHGTTWEECBMIVQQELSAZXWKWIIILLDWLFXPIPVPONDTMVAMNOEDSOYQGOBLGQCKGMMCTYCSLOACUZMXVDMGSXCYZUUIUNIXFNU")	
+	#makePuzzle("EOARBRNIABZEBRAEBRBHARRACCOONRAACBRRCHECCNABOZOBKABONIRBBNCAEERTCBRAIAABCERICRHRBOIORORCCOBOAAKRKEAR")
+	#printPuzzle("EOARBRNIABZEBRAEBRBHARRACCOONRAACBRRCHECCNABOZOBKABONIRBBNCAEERTCBRAIAABCERICRHRBOIORORCCOBOAAKRKEAR")
+
+
+	stringCharacters = str(input())
+	strWord = str(input())
+	print(stringCharacters)
+
+	puzzle = makePuzzle(stringCharacters)
+	solList = [ ] 
+
+	listWords = strWord.split()
+	#print(listWords)
+	found = False
+
+	for word in listWords:
+		for r in range(len(puzzle)):
+			forw = checkForward(puzzle[r], word)
+			back = checkBackward(puzzle[r], word)
+			down = checkDown(puzzle,r, word)
+			up = checkUp(puzzle,r, word)
+			if forw[0] == True:
+				solList.append(word+": (FORWARD) row:",r,"column:", forw[1])
+			elif back[0] ==True:
+				solList.append(word+": (BACKWARD) row:",r,"column:", (10-back[1]))
+			elif down[0] ==True:
+				solList.append(word+": (UP) row:",down[1], "column:", r)
+			elif up[0] ==True:
+				solList.append(word+": (DOWN) row:",up[1],"column:", r)
+			else:
+				solList.append("TEST: word not found")
+	print("Puzzle:" )
+	print()
+	printPuzzle(puzzle)
+	print()
+	for i in solList:
+		print(i)
+
+		
+if __name__ == "__main__":
+	main()
+
